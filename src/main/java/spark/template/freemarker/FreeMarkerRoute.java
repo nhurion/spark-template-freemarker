@@ -16,14 +16,14 @@
  */
 package spark.template.freemarker;
 
-import java.io.IOException;
-import java.io.StringWriter;
-
-import spark.ModelAndView;
-import spark.TemplateViewRoute;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import spark.ModelAndView;
+import spark.TemplateViewRoute;
+
+import java.io.IOException;
+import java.io.StringWriter;
 
 /**
  * Renders HTML from Route output using FreeMarker.
@@ -59,6 +59,29 @@ public abstract class FreeMarkerRoute extends TemplateViewRoute {
     protected FreeMarkerRoute(String path, String acceptType) {
         super(path, acceptType);
         this.configuration = createDefaultConfiguration();
+    }
+
+    /**
+     * Creates a FreeMarkerRoute for a path with a configuration
+     *
+     * @param path The route path which is used for matching. (e.g. /hello, users/:name)
+     * @param configuration The Freemarker configuration
+     */
+    protected FreeMarkerRoute(String path, Configuration configuration) {
+        super(path);
+        this.configuration = configuration;
+    }
+
+    /**
+     * Creates a FreeMarkerRoute for a path and accept type with a configuration
+     *
+     * @param path The route path which is used for matching. (e.g. /hello, users/:name)
+     * @param acceptType The accept type which is used for matching.
+     * @param configuration The Freemarker configuration
+     */
+    protected FreeMarkerRoute(String path, String acceptType, Configuration configuration) {
+        super(path, acceptType);
+	     this.configuration = configuration;
     }
 
     /**
